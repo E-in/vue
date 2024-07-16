@@ -82,7 +82,7 @@ export default {
             type: "success",
           });
           localStorage.setItem("user",JSON.stringify(res.data));
-          this.$router.push("/home");
+          this.$router.push("/");
 
         } else {
           this.$message({

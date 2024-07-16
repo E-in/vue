@@ -6,16 +6,18 @@
       <el-button type="warning" style="margin-left: 10px" @click="findBySearch()">Search</el-button>
       <el-button type="primary" style="margin-left: 10px">Create</el-button>
     </div>
-    <div>
+    <div class="block">
       <el-table
         :data="tableData"
-        style="width: 100%">
-        <el-table-column fixed prop="id" label="id" width="150"> </el-table-column>
-        <el-table-column prop="name" label="name" width="120"> </el-table-column>
-        <el-table-column prop="password" label="password" width="120"> </el-table-column>
-        <el-table-column prop="gender" label="gender" width="120"></el-table-column>
-        <el-table-column prop="phone" label="phone" width="300"></el-table-column>
-        <el-table-column label="Operation">
+        style="width: 100%"
+        header-align ="center"
+        border ="true">
+        <el-table-column fixed prop="id" label="id" width="150" > </el-table-column>
+        <el-table-column prop="name" label="name"  > </el-table-column>
+        <el-table-column prop="password" label="password" width="120" > </el-table-column>
+        <el-table-column prop="gender" label="gender" width="120" ></el-table-column>
+        <el-table-column prop="phone" label="phone" width="300" ></el-table-column>
+        <el-table-column label="Operation" width="300" >
           <el-button type="primary" width="5">edit</el-button>
           <el-button type="danger" width="50">delete</el-button>
         </el-table-column>
@@ -34,7 +36,13 @@
     </div>
   </div>
 </template>
-
+<style>
+.block {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+</style>
 <script>
 
 

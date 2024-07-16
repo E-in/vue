@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="block">
+    <div class="block" >
       <span class="demonstration">Date</span>
       <el-date-picker
           v-model="selectedDate"
@@ -12,18 +12,20 @@
       <el-button type="primary" style="margin-left: 10px" @click="add()">Create</el-button>
     </div>
 
-    <div>
+    <div class="block">
       <el-table
           :data="tableData"
-          style="width: 100%">
+          style="width: 100%"
+          border
+      >
         <el-table-column prop="user_id" label="userid" width="120"> </el-table-column>
         <el-table-column prop="date" label="date" width="120"> </el-table-column>
         <el-table-column prop="severity" label="Severity" width="120"></el-table-column>
         <el-table-column prop="location" label="Location" width="300"></el-table-column>
-        <el-table-column prop="description" label="Description" width="300"></el-table-column>
-        <el-table-column label="Operation">
+        <el-table-column prop="description" label="Description" ></el-table-column>
+        <el-table-column label="Operation" width="300">
           <template slot-scope = "scope">
-            <el-button type="primary"  @click = "edit(scope.row.id)">edit</el-button>
+            <el-button type="primary"  @click = "edit(scope.row)">edit</el-button>
             <el-popconfirm title="You sure to delete this？" @confirm="del(scope.row.id)">
               <el-button slot="reference" type="danger" style="margin-left: 10px">delete</el-button>
             </el-popconfirm>
@@ -61,7 +63,7 @@
             <el-input v-model="form.location" autocomplete="off"></el-input>
           </el-form-item>
           <el-form-item label="description" >
-            <el-input v-model="form.description" autocomplete="off"></el-input>
+            <el-input type="textarea" :autosize="{ minRows: 2}" v-model="form.description" autocomplete="off"></el-input>
           </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
@@ -72,7 +74,13 @@
     </div>
   </div>
 </template>
-
+<style>
+.block {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+</style>
 <script>
 import request from "@/utils/request";
 
@@ -119,12 +127,13 @@ export default {
       this.form = {};
       this.dialogFormVisible = true;
     },
-    edit(obj){
-      this.form = obj;
+    edit(obj) {
+
+      this.form = JSON.parse(JSON.stringify(obj));
       this.dialogFormVisible = true;
     },
-    del(id){
-      request.delete("/symptom/"+id).then(res =>{
+    del(id) {
+      request.delete("/symptom/" + id).then(res => {
         if (res.code === '0') {
           this.$message({
             message: "Operation Success",
