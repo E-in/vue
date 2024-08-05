@@ -33,12 +33,21 @@ const routes = [
         path: 'patient',
         name: 'Patient',
         component: () => import('../views/Patient.vue')
-      }
-      ,
+      },
       {
-        path: 'symptom',
-        name: 'Symptom',
-        component: () => import('../views/Symptom.vue')
+        path: 'Record',
+        name: 'Record',
+        component: () => import('../views/RecordView.vue')
+      },
+      {
+        path: 'Manage',
+        name: 'Manage',
+        component: () => import('../views/SymptomManage.vue')
+      },
+      {
+        path: 'info',
+        name: 'Info',
+        component: () => import('../views/InfoView.vue')
       }
     ]
   }

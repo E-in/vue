@@ -1,49 +1,49 @@
 <template>
-  <div>
+  <div class="full-page">
     <div>
-     <div style="width: 400px; height: 350px; margin: 150px auto; background-color:rgba(107,149,224,0.5); border-radius: 10px">
-        <div style="width: 100%; height: 100px; font-size: 30px; line-height: 100px; text-align: center; color: #4a5ed0">Welcome</div>
-         <div style="margin-top: 25px; text-align: center; height: 320px;">
-         <el-form :model="user">
-           <el-form-item>
-             <el-input v-model="user.id" prefix-icon="el-icon-user" style="width: 80%" placeholder="Enter user id"></el-input>
-           </el-form-item>
-           <el-form-item>
-             <el-input v-model="user.password" show-password prefix-icon="el-icon-lock" style="width: 80%" placeholder="Enter password"></el-input>
-          </el-form-item>
-           <el-form-item>
+      <div style="width: 400px; height: 350px;  background-color:#00B0A0; border-radius: 10px">
+        <div style="width: 100%; height: 100px; font-size: 30px; line-height: 100px; text-align: center; color: yellow">PsoriaLog</div>
+        <div style="margin-top: 25px; text-align: center; height: 320px;">
+          <el-form :model="user">
+            <el-form-item>
+              <el-input v-model="user.id" prefix-icon="el-icon-user" style="width: 80%" placeholder="Enter user id"></el-input>
+            </el-form-item>
+            <el-form-item>
+              <el-input v-model="user.password" show-password prefix-icon="el-icon-lock" style="width: 80%" placeholder="Enter password"></el-input>
+            </el-form-item>
+            <el-form-item>
               <el-button style="width: 80%; margin-top: 10px" type="primary" @click="login()">login</el-button>
-           </el-form-item>
-           <el-form-item>
-             <el-button style="width: 80%; margin-top: 2px" type="primary" @click="signup()">signup</el-button>
-           </el-form-item>
-         </el-form>
+            </el-form-item>
+            <el-form-item>
+              <el-button style="width: 80%; margin-top: 2px" type="primary" @click="signup()">signup</el-button>
+            </el-form-item>
+          </el-form>
         </div>
-     </div>
-   </div>
+      </div>
+    </div>
     <div>
       <el-dialog title="Sign Up" :visible.sync=dialogFormVisible :close-on-click-modal="false">
         <el-form :model="form">
-          <el-form-item label="Id" >
+          <el-form-item label="Id">
             <el-input v-model="form.id" autocomplete="off"></el-input>
           </el-form-item>
-          <el-form-item label="Name" >
+          <el-form-item label="Name">
             <el-input v-model="form.name" autocomplete="off"></el-input>
           </el-form-item>
-          <el-form-item label="Password" >
-            <el-input v-model="form.password" autocomplete="off"></el-input>
+          <el-form-item label="Password">
+            <el-input v-model="form.password" show-password autocomplete="off"></el-input>
           </el-form-item>
-          <el-form-item label="Age" >
+          <el-form-item label="Age">
             <el-input v-model="form.age" autocomplete="off"></el-input>
           </el-form-item>
-          <el-form-item label="Gender" >
+          <el-form-item label="Gender">
             <template>
-              <el-radio v-model="form.gender" label="1">Male</el-radio>
-              <el-radio v-model="form.gender" label="2">Female</el-radio>
-              <el-radio v-model="form.gender" label="3">Other</el-radio>
+              <el-radio v-model="form.gender" label="Male">Male</el-radio>
+              <el-radio v-model="form.gender" label="Female">Female</el-radio>
+              <el-radio v-model="form.gender" label="Other">Other</el-radio>
             </template>
           </el-form-item>
-          <el-form-item label="Phone" >
+          <el-form-item label="Phone">
             <el-input v-model="form.phone" autocomplete="off"></el-input>
           </el-form-item>
         </el-form>
@@ -56,34 +56,31 @@
   </div>
 </template>
 
-
 <script>
-
 import request from "@/utils/request";
 
 export default {
-  name:"Login",
-  data(){
-    return{
+  name: "Login",
+  data() {
+    return {
       user: {},
       dialogFormVisible: false,
       form: {},
-    }
+    };
   },
   created() {
     localStorage.clear();
   },
-  methods:{
-    login(){
-      request.post("/user/login",this.user).then(res => {
+  methods: {
+    login() {
+      request.post("/user/login", this.user).then((res) => {
         if (res.code === '0') {
           this.$message({
             message: "Login Success",
             type: "success",
           });
-          localStorage.setItem("user",JSON.stringify(res.data));
+          localStorage.setItem("user", JSON.stringify(res.data));
           this.$router.push("/");
-
         } else {
           this.$message({
             message: res.msg,
@@ -92,13 +89,12 @@ export default {
         }
       });
     },
-    signup(){
+    signup() {
       this.form = {};
       this.dialogFormVisible = true;
     },
     submit() {
-
-      request.post("/user/signup", this.form).then(res => {
+      request.post("/user/signup", this.form).then((res) => {
         if (res.code === '0') {
           this.$message({
             message: "Operation Success",
@@ -112,7 +108,22 @@ export default {
           });
         }
       });
-    }
-  }
-}
+    },
+  },
+};
 </script>
+
+<style scoped>
+.full-page {
+  background-color: #b9dbe3;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+body {
+  margin: 0;
+}
+</style>
